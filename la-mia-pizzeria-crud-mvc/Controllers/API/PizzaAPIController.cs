@@ -98,6 +98,8 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
             pizzaToUpdate.Price = pizza.Price;
             pizzaToUpdate.CategoryId = pizza.CategoryId;
 
+            _myDb.SaveChanges();
+
             return Ok(pizzaToUpdate);
         }
 
