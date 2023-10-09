@@ -2,6 +2,7 @@
 using la_mia_pizzeria_crud_mvc.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_crud_mvc.Controllers.API
 {
@@ -14,7 +15,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
         {
             using (PizzeriaContext db = new PizzeriaContext())
             {
-                List<Pizza> pizzas = db.Pizzas.ToList();
+                List<Pizza> pizzas = db.Pizzas.Include(pizza => pizza.Ingredients).ToList();
 
                 return Ok(pizzas);
             }
