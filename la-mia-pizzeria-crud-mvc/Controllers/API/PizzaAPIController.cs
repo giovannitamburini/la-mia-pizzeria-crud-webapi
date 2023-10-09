@@ -11,6 +11,13 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
     [ApiController]
     public class PizzaAPIController : ControllerBase
     {
+        private PizzeriaContext _myDb;
+
+        public PizzaAPIController(PizzeriaContext myDb)
+        {
+            this._myDb = myDb;
+        }
+
         [HttpGet]
         public IActionResult GetPizzas()
         {
@@ -57,5 +64,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
                 }
             }
         }
+
+
     }
 }
