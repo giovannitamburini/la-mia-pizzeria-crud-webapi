@@ -39,5 +39,23 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
                 return Ok(foundPizzas);
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult SearchPizzaById(int id)
+        {
+            using (PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza? foundPizza = db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).FirstOrDefault();
+
+                if(foundPizza != null)
+                {
+                    return Ok(foundPizza);
+                }
+                else
+                {
+                    return NotFound(new {Message = "Non è stata trovata alcuna pizza che corrisponde al numero dell'id inserito"});
+                }
+            }
+        }
     }
 }
