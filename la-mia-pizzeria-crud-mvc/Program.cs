@@ -2,6 +2,7 @@ using la_mia_pizzeria_crud_mvc.CustomLoggers;
 using la_mia_pizzeria_crud_mvc.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace la_mia_pizzeria_crud_mvc
 {
@@ -21,6 +22,9 @@ namespace la_mia_pizzeria_crud_mvc
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // codice di configurazione per il serializzatore Json, in modo che ignori le dipendenze cicliche scaturite dalle eventuali relazioni 1:N o N:N presenti nel Json risultante
+            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             // aggiunta l'iniezione delle dipendenze per l'interfaccia ICustomLogger 
             builder.Services.AddScoped<ICustomLogger, CustomFileLogger>();
