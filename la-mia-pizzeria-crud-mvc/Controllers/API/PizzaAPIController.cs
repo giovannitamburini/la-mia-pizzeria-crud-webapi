@@ -80,5 +80,44 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
+        
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Pizza pizza)
+        {
+            Pizza? pizzaToUpdate = _myDb.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+            if(pizzaToUpdate == null)
+            {
+                return NotFound(new { Message = "Non è stata trovata alcuna pizza da modificare" });
+            }
+
+            pizzaToUpdate.Name = pizza.Name;
+            pizzaToUpdate.Description = pizza.Description;
+            pizzaToUpdate.PathImage = pizza.PathImage;
+            pizzaToUpdate.Price = pizza.Price;
+            pizzaToUpdate.CategoryId = pizza.CategoryId;
+
+            return Ok(pizzaToUpdate);
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Pizza? pizzaToDelete = _myDb.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+            if(pizzaToDelete == null)
+            {
+                //return NotFound(new {Message = "la pizza che vorresti eliminare non è stata trovata"});
+
+                return BadRequest(new { Message = "Non è stata trovata nessuna pizza che corrisponde all'id inserito" });
+            }
+
+            _myDb.Pizzas.Remove(pizzaToDelete);
+            _myDb.SaveChanges();
+
+            return Ok();
+        }
     }
 }
