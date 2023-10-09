@@ -62,7 +62,17 @@ namespace la_mia_pizzeria_crud_mvc.Database
 
         public bool DeletePizza(int id)
         {
-            throw new NotImplementedException();
+            Pizza? pizzaToDelete = _myDb.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+            if (pizzaToDelete == null)
+            {
+                return false;
+            }
+
+            _myDb.Pizzas.Remove(pizzaToDelete);
+            _myDb.SaveChanges();
+
+            return true;
         }
     }
 }
