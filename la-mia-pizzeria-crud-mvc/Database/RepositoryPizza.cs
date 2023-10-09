@@ -42,7 +42,17 @@ namespace la_mia_pizzeria_crud_mvc.Database
 
         public bool AddPizza(Pizza pizzaToAdd)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _myDb.Pizzas.Add(pizzaToAdd);
+                _myDb.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool UpdatePizza(int id, Pizza updatedPizza)
