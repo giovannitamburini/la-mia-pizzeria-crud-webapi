@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "User/_UserLayout";
+}
+
+@model Pizza
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
+            {
+                <div class="card">
+                    <img src="@Model.PathImage" class="card-img-top" alt="@Model.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Name</h5>
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text">Prezzo: $@Model.Price $</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>Non hai le autorizzazioni necessarie per visitare questa pagina</div>
+            }
+        </div>
+    </div>
+    <div class="py-3 d-flex justify-content-center">
+        <a class="btn btn-warning" href="/Pizza/UserIndex">Torna alla Home</a>
+    </div>
+</div>

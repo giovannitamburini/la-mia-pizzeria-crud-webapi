@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "User/_UserLayout";
+}
+
+@model List<Pizza>
+
+@if (Model.Count() == 0)
+{
+    <div><strong>Non risultano pizze da mostrare</strong></div>
+}
+else
+{
+    <div class="container">
+
+        <div class="gap-4 d-flex justify-content-center row">
+
+            @if (User.IsInRole("USER") || User.IsInRole("ADMIN"))
+            {
+                @foreach (Pizza pizza in Model)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img src="@pizza.PathImage" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@pizza.Name</h5>
+                            <p class="card-text">@pizza.Description</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Price: </strong>@pizza.Price $</li>
+                        </ul>
+                        <div class="card-body">
+                            <a class="btn btn-dark" href="@Url.Action("UserDetails", "Pizza", new {id = pizza.Id})"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div>Non hai le autorizzazioni necessarie per visitare questa pagina</div>
+            }
+        </div>
+    </div>
+}
+

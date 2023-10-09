@@ -1,0 +1,24 @@
+﻿<header>
+    <nav class="navbar navbar-expand-lg bg-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/Pizza/UserIndex">
+                <img src="~/img/logo_pizza_user.png" alt="Logo" width="70" height="70" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href=@Url.Action("UserIndex", "Pizza")>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        @* link pagina di amministrazione *@
+                        @* <a class="nav-link" href="/Pizza/Index">Admin Page</a> *@
+                        <a class="nav-link active" href=@Url.Action("Index", "Pizza")>Admin Page</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

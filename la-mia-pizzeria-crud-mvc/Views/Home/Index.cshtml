@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "Admin/_MyLayout";
+}
+
+
+@* @{
+    List<Pizza> pizzaList = new List<Pizza>();
+
+    pizzaList.Add(new Pizza(1,"margherita", "Pomodoro, mozzarella, basilico", "margherita.jpg", 5.99f));
+    pizzaList.Add(new Pizza(2,"bufala", "Pomodoro, bufala, basilico", "bufala.jpg", 6.99f));
+    pizzaList.Add(new Pizza(3,"diavola", "Pomodoro, mozzarella, salame piccante", "diavola.jpg", 8.00f));
+    pizzaList.Add(new Pizza(4,"capricciosa", "Pomodoro, mozzarella, carciofi, olive, prosciutto cotto, basilico", "capricciosa.jpg", 7.50f));
+    pizzaList.Add(new Pizza(5,"americana", "Pomodoro, mozzarella, patatine fritte, wurstel", "wurstel-patatine.jpg", 6.50f));
+    pizzaList.Add(new Pizza(6,"quattro formaggi", "Mozzarella, gorgonzola, fontina, parmigiano", "quattro_formaggi.jpg", 7.00f));
+    pizzaList.Add(new Pizza(7,"ortolana", "Mozzarella, pomodorini, zucchine, melanzane, peperoni", "ortolana.jpg", 8.00f));
+} *@
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <h1 class="py-5">PIzzas List</h1>
+
+            <table class="table table-dark table-hover table-bordered border-success caption-top">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price $</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @*  @foreach(Pizza pizza in pizzaList)
+                    {
+                        <tr>
+                            <th scope="row">@pizza.Id</th>
+                            <td><img src="~/img/@pizza.PathImage" width="100" /></td>
+                            <td>@pizza.Name</td>
+                            <td>@pizza.Description</td>
+                            <td>@pizza.Price $</td>
+                        </tr>
+                    } *@
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>

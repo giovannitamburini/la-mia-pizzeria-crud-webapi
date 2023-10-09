@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "User/_UserLayout";
+}
+
+@* @{
+    List<Pizza> userPizzaList = new List<Pizza>();
+
+    userPizzaList.Add(new Pizza(1, "margherita", "Pomodoro, mozzarella, basilico", "margherita.jpg", 5.99f));
+    userPizzaList.Add(new Pizza(2, "bufala", "Pomodoro, bufala, basilico", "bufala.jpg", 6.99f));
+    userPizzaList.Add(new Pizza(3, "diavola", "Pomodoro, mozzarella, salame piccante", "diavola.jpg", 8.00f));
+    userPizzaList.Add(new Pizza(4, "capricciosa", "Pomodoro, mozzarella, carciofi, olive, prosciutto cotto, basilico", "capricciosa.jpg", 7.50f));
+    userPizzaList.Add(new Pizza(5, "americana", "Pomodoro, mozzarella, patatine fritte, wurstel", "wurstel-patatine.jpg", 6.50f));
+    userPizzaList.Add(new Pizza(6, "quattro formaggi", "Mozzarella, gorgonzola, fontina, parmigiano", "quattro_formaggi.jpg", 7.00f));
+    userPizzaList.Add(new Pizza(7, "ortolana", "Mozzarella, pomodorini, zucchine, melanzane, peperoni", "ortolana.jpg", 8.00f));
+}
+ *@
+<div class="container">
+
+    <div class="gap-4 d-flex justify-content-center row">
+
+        @* @foreach(Pizza pizza in userPizzaList)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="~/img/@pizza.PathImage" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@pizza.Name</h5>
+                    <p class="card-text">@pizza.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Price: </strong>@pizza.Price $</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        } *@
+    </div>
+</div>

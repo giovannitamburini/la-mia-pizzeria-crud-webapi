@@ -1,0 +1,51 @@
+﻿<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <div class="d-flex">
+
+                <a class="navbar-brand" href="/Pizza/Index">
+                    <img src="~/img/logo_pizza.png" alt="Pizza" width="50" height="50">
+                    Pizza
+                </a>
+
+                <partial name="./_LoginPartial" />
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                        <li class="nav-item">
+                            @* <a class="nav-link active" aria-current="page" href="/Pizza/Index">Home</a> *@
+                            <a class="nav-link" href=@Url.Action("Index", "Pizza")>Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            @* link pagina userindex *@
+                            @* metodo classico *@
+                            @* <a class="nav-link" href="/Pizza/UserIndex">User Home</a> *@
+                            <a class="nav-link" href=@Url.Action("UserIndex", "Pizza")>User Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Product menu
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href=@Url.Action("Create", "Pizza")>Add new pizza</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

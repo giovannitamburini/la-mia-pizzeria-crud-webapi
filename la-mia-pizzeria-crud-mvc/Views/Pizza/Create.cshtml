@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "Admin/_MyLayout";
+}
+
+@* @model Pizza *@
+@* modifico il model *@
+@model PizzaFormModel
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+
+            @* autorizzazione *@
+            @if (User.IsInRole("ADMIN"))
+            {
+                <h1 class="py-4">Aggiungi una nuova Pizza</h1>
+
+                <form asp-controller="Pizza" asp-action="Create" method="post">
+
+                    @* per la sicurezza *@
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="createname"><strong>Nome</strong></label>
+                        <input type="text" class="form-control" id="createname" placeholder="Inserisci Nome" asp-for="Pizza.Name">
+                        <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="createdescription"><strong>Descrizione</strong></label>
+                        <input type="text" class="form-control" id="createdescription" placeholder="Descrizione" asp-for="Pizza.Description">
+                        <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="createimage"><strong>Path immagine</strong></label>
+                        <input type="text" class="form-control" id="createimage" placeholder="Path immagine" asp-for="Pizza.PathImage">
+                        <span asp-validation-for="Pizza.PathImage" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="createprice"><strong>Prezzo</strong></label>
+                        <input type="text" class="form-control" id="createprice" placeholder="Prezzo" asp-for="Pizza.Price">
+                        <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+                    </div>
+
+                    @* select per la categoria *@
+                    <div class="mb-3">
+                        <label for="createcategory"><strong>Categoria</strong></label>
+                        <select class="form-select" id="createcategory" aria-label="Default select example" asp-for="Pizza.CategoryId">
+
+                            <option value="">Seleziona una categoria</option>
+
+                            @foreach (Category categ in Model.Categories)
+                            {
+                                <option value="@categ.Id">@categ.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    @* select multipla per gli ingredienti *@
+                    <div class="mb-3">
+                        <label for="createingredients">Seleziona gli ingredienti:</label>
+                        <select asp-for="SelectedIngredientsId"
+                                multiple="multiple"
+                                size="10"
+                                class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                                asp-items="@Model.Ingredients">
+                        </select>
+                    </div>
+
+                    @* <div class="mb-3">
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="selectedIngredient" value="@ingredient.Value" @(selectedIngredients.Contains(ingredient.Value) ? "checked" : "") id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                @ingredient.Text
+                </label>
+                </div>
+                }
+                </div> *@
+
+
+
+                    <button type="submit" class="btn btn-primary">Crea</button>
+                </form>
+            }
+            else
+            {
+                <div>Non hai le autorizzazioni necessarie per visitare questa pagina</div>
+            }
+
+        </div>
+    </div>
+</div>
