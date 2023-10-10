@@ -33,18 +33,28 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
         [HttpGet]
         public IActionResult SearchPizzaByStringInTheName(string? stringToSearch)
         {
+            // inizializzo una nuova lista di pizze nel caso in cui la stringa di ricerca fosse vuota ("")
+            List<Pizza> foundedPizzas = new List<Pizza>();
+
             // gestisco il caso in cui la stringa da cercare nel nome sia nulla
-            if(stringToSearch == null)
+            if (stringToSearch == null)
             {
-                return BadRequest(new { Message = "Non hai inserito alcuna stringa da ricercare nel database" });
+                // return BadRequest(new { Message = "Non hai inserito alcuna stringa da ricercare nel database" });
+
+                foundedPizzas = _myDb.Pizzas.Include(pizza => pizza.Ingredients).ToList();
+
+                return Ok(foundedPizzas);
+            }
+            else
+            {
+                using (PizzeriaContext db = new PizzeriaContext())
+                {
+                    foundedPizzas = db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(stringToSearch.ToLower())).ToList();
+
+                    return Ok(foundedPizzas);
+                }
             }
 
-            using(PizzeriaContext db = new PizzeriaContext())
-            {
-                List<Pizza> foundPizzas = db.Pizzas.Where(pizza => pizza.Name.ToLower().Contains(stringToSearch.ToLower())).ToList();
-
-                return Ok(foundPizzas);
-            }
         }
 
         [HttpGet("{id}")]
@@ -54,13 +64,13 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
             {
                 Pizza? foundPizza = db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Category).Include(pizza => pizza.Ingredients).FirstOrDefault();
 
-                if(foundPizza != null)
+                if (foundPizza != null)
                 {
                     return Ok(foundPizza);
                 }
                 else
                 {
-                    return NotFound(new {Message = "Non è stata trovata alcuna pizza che corrisponde al numero dell'id inserito"});
+                    return NotFound(new { Message = "Non è stata trovata alcuna pizza che corrisponde al numero dell'id inserito" });
                 }
             }
         }
@@ -75,19 +85,19 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
 
                 return Ok(newPizza);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }
         }
 
-        
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Pizza pizza)
         {
             Pizza? pizzaToUpdate = _myDb.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
-            if(pizzaToUpdate == null)
+            if (pizzaToUpdate == null)
             {
                 return NotFound(new { Message = "Non è stata trovata alcuna pizza da modificare" });
             }
@@ -109,7 +119,7 @@ namespace la_mia_pizzeria_crud_mvc.Controllers.API
         {
             Pizza? pizzaToDelete = _myDb.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
 
-            if(pizzaToDelete == null)
+            if (pizzaToDelete == null)
             {
                 //return NotFound(new {Message = "la pizza che vorresti eliminare non è stata trovata"});
 

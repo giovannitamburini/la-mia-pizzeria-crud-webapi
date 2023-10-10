@@ -11,6 +11,11 @@
 
             <h1 class="py-5">PIzzas List</h1>
 
+            @* barra di ricerca *@
+            <div>
+                <input type="text" id="js-searchbar" class="form-control" placeholder="cerca per nome">
+            </div>
+
             @* spinner di caricamento *@
             <div id="loading-spinner" class="row py-5">
                 <div class="col-12">
@@ -21,14 +26,14 @@
             </div>
 
             @* container per il caso in cui non ho pizze da mostrare oppure non ne ottengo tramite la query di ricerca *@
-            <div id="row-no-articles" class="row d-none">
+            <div id="row-no-articles" class="row d-none py-5">
                 <div class="col-12">
                     Nessuna Pizza trovata
                 </div>
             </div>
 
             @* container per il caso in cui abbia pizze da mostrare  *@
-            <div id="list-of-pizzas" class="row d-none">
+            <div id="list-of-pizzas" class="row d-none py-5">
             </div>
 
         </div>
@@ -41,10 +46,20 @@
 
     <script type="text/javascript">
 
-        loadAllPizzas();
+        loadPizzas();
 
-        function loadAllPizzas() {
-            axios.get('/api/PizzaAPI/GetPizzas').then((res) => {
+        // aggiungo un eventListener
+        document.getElementById("js-searchbar").addEventListener('keyup', searchPizzas);
+
+        function searchPizzas() {
+
+            let searchString = document.getElementById("js-searchbar").value;
+
+            loadPizzas(searchString);
+        }
+
+        function loadPizzas(searchParam) {
+            axios.get('/api/PizzaAPI/SearchPizzaByStringInTheName', { params:{stringToSearch: searchParam}}).then((res) => {
 
                 // console.log(res);
                 console.log(res.data);
