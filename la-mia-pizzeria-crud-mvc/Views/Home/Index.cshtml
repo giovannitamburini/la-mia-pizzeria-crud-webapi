@@ -35,3 +35,20 @@
 
     </div>
 </div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        loadAllPizzas();
+        
+        function loadAllPizzas() {
+            axios.get('/api/PizzaAPI/GetPizzas').then((res) => {
+
+                console.log(res);
+            })
+        }
+    
+    </script>
+}
