@@ -59,7 +59,7 @@
         }
 
         function loadPizzas(searchParam) {
-            axios.get('/api/PizzaAPI/SearchPizzaByStringInTheName', { params:{stringToSearch: searchParam}}).then((res) => {
+            axios.get('/api/PizzaAPI/SearchPizzaByStringInTheName', { params: { stringToSearch: searchParam } }).then((res) => {
 
                 // console.log(res);
                 console.log(res.data);
@@ -84,25 +84,46 @@
                     listOfPizzasElement.innerHTML = "";
 
                     res.data.forEach(pizza => {
-                        
+
                         console.log(pizza);
 
-                        listOfPizzasElement.innerHTML += 
+                        listOfPizzasElement.innerHTML +=
                             `
-                            <div class="col-12 col-md-4 p-2">
-                                <div class="card post h-100">
-                                     <img src="${pizza.pathImage}" class="card-img-top" alt="${pizza.name}">
-                                     <div class="card-body">
-                                          <h5 class="card-title">${pizza.name}</h5>
-                                          <p class="card-text">${pizza.description}</p>
-                                          <div class="card-text">${pizza.price} $</div>
-                                     </div>
-                                </div>
-                            </div>
-                            `
+                                    <div class="col-12 col-md-4 p-2">
+                                        <div class="card post h-100">
+                                             <img src="${pizza.pathImage}" class="card-img-top" alt="${pizza.name}">
+                                             <div class="card-body">
+                                                  <h5 class="card-title">${pizza.name}</h5>
+                                                  <p class="card-text">${pizza.description}</p>
+                                                  <div class="card-text">${pizza.price} $</div>
+                                                  <button class="btn btn-danger delete-button" data-pizza-id="${pizza.id}">Elimina</button>
+                                             </div>
+                                        </div>
+                                    </div>
+                                    `
+                    });
+
+                    // Aggiungo un gestore di eventi per il pulsante "Elimina"
+                    document.querySelectorAll('.delete-button').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            var pizzaId = this.getAttribute('data-pizza-id');
+
+                            // Chiamata per eliminare la pizza
+                            axios.delete(`/api/PizzaAPI/Delete/${pizzaId}`)
+                                .then(function (response) {
+                                    
+                                    // aggiorno la lista delle pizze dopo l'eliminazione.
+                                    loadPizzas();
+                                })
+                                .catch(function (error) {
+                                    console.error('Errore durante la cancellazione della pizza:', error);
+                                });
+                        });
                     });
                 }
-            })
+            }).catch(function (error) {
+                console.error('Errore durante la richiesta GET:', error);
+            });
         }
 
     </script>
